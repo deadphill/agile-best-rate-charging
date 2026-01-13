@@ -3,7 +3,6 @@ layout: post
 title: "Mastering Octopus Agile: 7-Day Forecasting & Hardware Automation"
 date: 13/01/2026
 description: "A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile price forecasting and hardware retrofits."
-
 ---
 
 # Mastering Octopus Agile: 7-Day Forecasting & Hardware Automation
