@@ -327,6 +327,7 @@ Once you have:
 - with `prices[]` containing `date_time` and `agile_pred`
 
 Add this to `templates.yaml`:
+```yaml
 - sensor:
     - name: "Agile Forecast Summary"
       unique_id: agile_forecast_summary
@@ -364,6 +365,8 @@ Add this to `templates.yaml`:
           {% else %}
             []
           {% endif %}
+```
+
 ### Markdown display card for the forecast
 
 Paste this into a Lovelace Markdown card:
@@ -383,7 +386,8 @@ This alerts you if tonight’s scheduled average is much worse than the predicte
 It compares:
 - `binary_sensor.octopus_energy_target_optimal_car_charging` → `overall_average_cost`
 - your forecast “weekly minimum” sensor
-
+- 
+```yaml
 alias: "EV: Deep Discount Alert with Best Day"
 description: ""
 trigger:
@@ -411,6 +415,7 @@ action:
           - action: SKIP_EV_CHARGE
             title: Skip Tonight
 mode: single
+```
 
 ## 9. Making it Generic: Replace-my-entities table
 
