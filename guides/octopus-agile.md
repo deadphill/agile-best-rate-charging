@@ -370,6 +370,7 @@ Add this to `templates.yaml`:
 ### Markdown display card for the forecast
 
 Paste this into a Lovelace Markdown card:
+```yaml
 type: markdown
 content: >-
   | Day | Min | Avg | Max |
@@ -378,6 +379,7 @@ content: >-
   {% for day in data[:7] %}
   | {{ day.date }} | {{ day.min }}p | **{{ day.avg }}p** | {{ day.max }}p |
   {% endfor %}
+```
 
 ## 8. Optional: Deep Discount Alert
 
@@ -386,7 +388,7 @@ This alerts you if tonight’s scheduled average is much worse than the predicte
 It compares:
 - `binary_sensor.octopus_energy_target_optimal_car_charging` → `overall_average_cost`
 - your forecast “weekly minimum” sensor
-- 
+
 ```yaml
 alias: "EV: Deep Discount Alert with Best Day"
 description: ""
