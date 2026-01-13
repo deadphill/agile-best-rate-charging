@@ -142,7 +142,7 @@ Safety: By using the binary sensor as the "brain," you can easily see on your da
 
 Predictability: Because it uses the min price from your forecast, it ensures you are always hitting that bottom trough, even if the "cheapest" time changes from 2:00 AM to 4:00 AM the next day.
 
-Would you like me to help you create a Lovelace Dashboard card that shows a countdown until the next cheap charging window?
+
 
 ---
 
