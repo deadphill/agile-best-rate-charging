@@ -516,11 +516,12 @@ service: notify.mobile_app_my_phone
 ```
 If you’d like the notification to go to multiple devices, you can:
 
-duplicate the action, or
+-duplicate the action, or
 
-use a notify group (advanced), or
+-use a notify group (advanced), or
 
-use another integration like Telegram.
+-use another integration like Telegram.
+
 ---
 Why this matters in this project
 
