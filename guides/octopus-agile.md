@@ -69,6 +69,7 @@ Think of `configuration.yaml` as the **"Main Control Room"** of your house. If y
             {% set output = output + [{'date': date, 'avg': (p|sum/p|length)|round(1), 'min': p|min, 'max': p|max}] %}
           {% endfor %}
           {{ output | to_json }}
+```
 ---
 
 
