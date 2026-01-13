@@ -49,7 +49,7 @@ Ensure you have this line: `template: !include templates.yaml`
 **In `templates.yaml`:**
 Add the following code to create a summary sensor. This processes the 336 data points from the Agile Predict API into 7 clean daily averages.
 
-{% raw %}
+
 ```yaml
 - sensor:
     - name: "Agile Forecast Summary"
@@ -68,8 +68,7 @@ Add the following code to create a summary sensor. This processes the 336 data p
             {% set output = output + [{'date': date, 'avg': (p|sum/p|length)|round(1), 'min': p|min, 'max': p|max}] %}
           {% endfor %}
           {{ output | to_json }}
-```
-{% endraw %}
+
 
 ---
 
