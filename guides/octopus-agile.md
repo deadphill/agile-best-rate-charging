@@ -15,8 +15,8 @@ This guide attempts to give the option of seeing the rates and then being able t
 I consider myself to be a nothing more than a tinkerer and this is by far the biggest problem and yet the most rewarding project I have undertaken in home assistant. I am not a coder, and have basic built up knowledge of home assistant and how it all works together, and in doing so I went through many different approaches in trying to solve this problem. Using claude directly within my home assistant environment it came up with a few things but I could never get it to work. Undeterred, using Gemini and OpenAI I finally got something working, and I was able to add on a few trinkets like notify me that the charge is significantly higher tonight and produce a report output to let me know whats happened. In the process I learned a lot about how bottlecapdaves integration works and the wonderful world of the target rate timeframes that make this possible. 
 
 I wanted to share this with everyone making it as foolproof as I could while explaining as much as I could. Many a time have I followed a guide or setup of an integration and not understood what I needed to do because what was needed was inferred, or I just didn't yet know what I needed to know. Aside from this section everything else below I have created and refined using AI and in doing so I have tried to ensure that every step shows what's happening and more importantly why. I hope this helps someone else who like me who sometimes ends up getting frustrated with the setup process and just ends up abandoning the idea. This of course does mean that it is very likely there are some refinements and mistakes that may be made in the creation process and I am of course open to any constructive critism or to put a better way positive input into making this better. Either way I hope the guide informs and inspires you to take full advantage of the agile tariff and saves you some money in the process.  
-  
-
+<br />  
+<br />
 
 
 ## This guide shows you how to **automate EV charging at the cheapest possible Octopus Agile times** using Home Assistant and the **Octopus Energy integration by BottlecapDave**.
