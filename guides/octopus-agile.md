@@ -80,7 +80,7 @@ If you have a charger like Ohme / Zappi / Wallbox (etc.) and Home Assistant can 
 In this case, your automation will turn *that charger entity* on/off rather than a relay.
 
 #### Option B — Shelly / relay switch control (for dumb/legacy chargers) ✅ common DIY route
-#### (see section 2 for more information on how to retrofit a dumb/legacy charger)
+* *(see section 2 for more information on how to retrofit a dumb/legacy charger)* *
 If your charger is “dumb” (or an older charger with no integration), you can automate it by switching a relay.
 
 In this guide, I used a **Shelly relay retrofit** inside a legacy charger so Home Assistant can control it like a simple switch.
