@@ -234,6 +234,8 @@ Add this to your `templates.yaml` (or similar template include).
             0
           {% endif %}
         {% endif %}
+```
+
 ### 5.3 Update the target sensor dynamically (BottlecapDave Action)
 
 Home Assistant action/service (as shown in **Developer Tools → Actions**):
