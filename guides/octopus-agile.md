@@ -51,6 +51,7 @@ Think of `configuration.yaml` as the **"Main Control Room"** of your house. If y
 
 2. **In `templates.yaml`:** Create this new file and paste the code below:
 
+{% raw %}
 ```yaml
 - sensor:
     - name: "Agile Forecast Summary"
@@ -69,6 +70,7 @@ Think of `configuration.yaml` as the **"Main Control Room"** of your house. If y
             {% set output = output + [{'date': date, 'avg': (p|sum/p|length)|round(1), 'min': p|min, 'max': p|max}] %}
           {% endfor %}
           {{ output | to_json }}
+{% endraw %}
 ---
 
 ## 4. Visualising the 7-Day Forecast
