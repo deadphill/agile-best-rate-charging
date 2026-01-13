@@ -51,7 +51,6 @@ Think of `configuration.yaml` as the **"Main Control Room"** of your house. If y
 
 2. **In `templates.yaml`:** Create this new file and paste the code below:
 
-{% raw %}
 ```yaml
 - sensor:
     - name: "Agile Forecast Summary"
@@ -70,13 +69,13 @@ Think of `configuration.yaml` as the **"Main Control Room"** of your house. If y
             {% set output = output + [{'date': date, 'avg': (p|sum/p|length)|round(1), 'min': p|min, 'max': p|max}] %}
           {% endfor %}
           {{ output | to_json }}
-{% endraw %}
 ---
+
 
 ## 4. Visualising the 7-Day Forecast
 Once your sensor is running, use this Markdown card in your Home Assistant dashboard to view the weekly prices at a glance:
 
-{% raw %}
+
 ```yaml
 type: markdown
 content: >-
@@ -87,7 +86,7 @@ content: >-
   | {{ day.date }} | {{ day.min }}p | **{{ day.avg }}p** | {{ day.max }}p |
   {% endfor %}
 ```
-{% endraw %}
+
 
 ---
 
