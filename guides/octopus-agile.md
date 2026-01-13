@@ -12,6 +12,9 @@ This guide outlines how to build a 7-day predicted pricing dashboard for Octopus
 ---
 
 ## 1. Prerequisites
+
+I'm going to state the obvious. In this scenario you obviously need an electric car and a charger. There is nothing stopping you adding this into another automation. You might be able to control your emersion heater for example to only come on when the prices are negative. Use this not as an instructional how to but as a guide. This guide has been written and definded using AI. Gemini got me to where I needed to be. I have tried several iterations of this before but it wasnt until the target rate timeframes (formerly sensors) were introduced to me that I knew what to do. 
+
 * **Home Assistant:** Installed and running on your home network.
 * **Octopus Energy Integration:** This guide uses the [Octopus Energy Integration by BottlecapDave](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy).
 * **Agile Predict API Sensor:** A "REST" sensor pulling data from the [AgilePredict API](https://agilepredict.com/).
