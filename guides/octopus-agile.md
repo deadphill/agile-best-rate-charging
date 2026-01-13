@@ -1,4 +1,35 @@
-Mastering Octopus Agile: A 7-Day Forecasting & Hardware GuideThis guide explains how to move beyond 24-hour confirmed rates to a 7-day predicted outlook, and how to physically control "dumb" hardware to automate your EV charging.1. PrerequisitesHome Assistant (Installed).Octopus Energy Integration (by BottlecapDave). How to setup Octopus IntegrationAgile Predict API Sensor: A REST sensor (e.g., sensor.agile_predict) pulling data from the AgilePredict API.2. The Software Problem: Data OverloadThe prediction API provides 336 data points (48 slots $\times$ 7 days). Processing this in the UI causes lag and a "wall of text" (the "Long Box" issue).The Solution: Offload the math to a Template Sensor in your backend.Setup: The templates.yaml FileIf you don't have one, add template: !include templates.yaml to your configuration.yaml. Inside templates.yaml, add:YAML- sensor:
+---
+layout: post
+title: "Mastering Octopus Agile: 7-Day Forecasting & Hardware Automation"
+date: 2026-01-13
+author: "The Hornets"
+description: "A complete guide to automating EV charging with Octopus Agile, predicted rates, and Shelly hardware retrofits."
+---
+
+# Mastering Octopus Agile: 7-Day Forecasting & Hardware Automation
+
+This guide outlines how to build a 7-day predicted pricing dashboard for Octopus Agile to help you find the cheapest windows for EV charging.
+
+---
+
+## 1. Prerequisites
+* **Home Assistant:** Installed and running.
+* **Octopus Energy Integration:** The [BottlecapDave integration](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy) must be configured.
+* **Agile Predict API Sensor:** A REST sensor (usually `sensor.agile_predict`) pulling data from the [AgilePredict API](https://agilepredict.com/).
+
+---
+
+## 2. The Software Problem: Data Overload
+The prediction API provides 336 data points (48 slots $\times$ 7 days). Processing this directly in the UI causes lag and a "wall of text."
+
+### The Solution: Backend Optimization
+We moved the logic to a **Template Sensor** in the Home Assistant backend. This processes the data once an hour and stores a clean "summary" for each day.
+
+#### Setup: `templates.yaml`
+Add this to your `templates.yaml` file to create `sensor.agile_forecast_summary`:
+
+```yaml
+- sensor:
     - name: "Agile Forecast Summary"
       unique_id: agile_forecast_summary
       attributes:
@@ -15,12 +46,3 @@ Mastering Octopus Agile: A 7-Day Forecasting & Hardware GuideThis guide explains
             {% set output = output + [{'date': date, 'avg': (p|sum/p|length)|round(1), 'min': p|min, 'max': p|max}] %}
           {% endfor %}
           {{ output | to_json }}
-The UI: Clean Markdown TableInstead of a long list, use a Markdown card to display a scannable table:YAMLtype: markdown
-content: >-
-  | Day | Min | Avg | Max |
-  |:---|:---:|:---:|:---:|
-  {% set data = state_attr('sensor.agile_forecast_summary', 'daily_data') | from_json %}
-  {% for day in data[:7] %}
-  | {{ as_datetime(day.date).strftime('%a %d') }} | {{ day.min }}p | **{{ day.avg }}p** | {{ day.max }}p |
-  {% endfor %}
-3. The Hardware Problem: Triggering the ChargeHow do you automate a "dumb" charger? You have two main paths:Option 1: The Vehicle API. Use integrations like Tesla or Kia Connect. Easy setup, but cloud-reliant.Option 2: The Hardware Retrofit. For older units like a Chargemaster, you can install a Shelly 1 switch inside the unit.The Hack: Use the Shelly to interrupt the Control Pilot (CP) wire. This signals the car to pause/start charging without cutting the main 32A power directly, which is safer for the contactors.Busbar Alternative: For a "dumb" setup without opening the charger, use a heavy-duty DIN-rail contactor in your consumer unit triggered by a smart switch.
