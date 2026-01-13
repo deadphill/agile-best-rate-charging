@@ -87,7 +87,61 @@ content: >-
   | {{ day.date }} | {{ day.min }}p | **{{ day.avg }}p** | {{ day.max }}p |
   {% endfor %}
 ```
+---
 
+## 5. Creating the "Target Rate" Switch
+We need a sensor that turns on only when the current price is the cheapest of the day. This logic compares your current Agile rate to the min value we extracted in the previous step.
+
+Add this to your templates.yaml:
+
+```yaml
+- binary_sensor:
+    - name: "EV Cheapest Charging Window"
+      unique_id: ev_cheapest_charging_window
+      icon: mdi:car-electric
+      state: >
+        {% set current_price = states('sensor.octopus_energy_electricity_current_rate') | float(0) %}
+        {% set forecast = state_attr('sensor.agile_forecast_summary', 'daily_data') | from_json %}
+        {% set today = now().strftime('%d/%m/%Y') %}
+        
+        {# Find today's minimum price from our forecast sensor #}
+        {% set today_min = forecast | selectattr('date', 'eq', today) | map(attribute='min') | first | default(99) %}
+        
+        {# The sensor turns ON if current price is equal to or less than the daily minimum #}
+        {{ current_price <= today_min }}
+```      
+## 6. The Automation
+Now we tell Home Assistant to actually move the hardware. This automation watches the binary sensor we just made. When it turns on, it switches the Shelly relay; when it turns off, it stops the charge.
+
+You can add this via the Settings > Automations UI or paste this into your automations.yaml:
+
+YAML
+
+alias: "EV Charging: Agile Price Optimizer"
+description: "Automatically toggles the Shelly relay based on the cheapest predicted price of the day."
+trigger:
+  - platform: state
+    entity_id: binary_sensor.ev_cheapest_charging_window
+condition:
+  - condition: state
+    entity_id: binary_sensor.car_is_plugged_in # Optional: Add if you have a car integration
+    state: "on"
+action:
+  - service: >
+      {% if is_state('binary_sensor.ev_cheapest_charging_window', 'on') %}
+        switch.turn_on
+      {% else %}
+        switch.turn_off
+      {% endif %}
+    target:
+      entity_id: switch.shelly_ev_charger_relay
+mode: restart
+Why this approach works:
+Safety: By using the binary sensor as the "brain," you can easily see on your dashboard if the car should be charging right now.
+
+Predictability: Because it uses the min price from your forecast, it ensures you are always hitting that bottom trough, even if the "cheapest" time changes from 2:00 AM to 4:00 AM the next day.
+
+Would you like me to help you create a Lovelace Dashboard card that shows a countdown until the next cheap charging window?
 
 ---
 
