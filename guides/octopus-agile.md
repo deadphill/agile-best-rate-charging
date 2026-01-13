@@ -418,6 +418,119 @@ action:
             title: Skip Tonight
 mode: single
 ```
+### About `notify.mobile_app_flip_phone` (what this actually means)
+
+Home Assistant doesn’t “magically know” where to send a notification — it needs a **notification target**.
+
+If you use the **Home Assistant Companion App** (Android or iOS), Home Assistant will create a notification service for *each device* that has the Companion App logged into your Home Assistant instance.
+
+In Home Assistant terms, a **device** here usually means:
+
+#### ✅ Most common: your mobile phone
+- Android phone
+- iPhone
+
+This is the typical use case. You install the Companion App on your phone, log in, and Home Assistant creates a service like:
+- `notify.mobile_app_my_phone`
+- `notify.mobile_app_iphone`
+- `notify.mobile_app_pixel_8`
+
+In my setup, my phone happens to be called **“Flip Phone”**, so the notify service is:
+- `notify.mobile_app_flip_phone`
+
+> It is *not* referring to an actual old-school flip phone — it’s just the friendly name given to the device in Home Assistant.
+
+#### ✅ Also common: a tablet / wall-mounted dashboard panel
+Some people keep a tablet on the wall running Home Assistant dashboards.
+If that tablet is running the Companion App and logged in, it can receive push notifications too.
+
+Examples:
+- `notify.mobile_app_kitchen_tablet`
+- `notify.mobile_app_hallway_panel`
+
+#### ✅ Less common: multiple phones (shared household setup)
+If more than one person uses Home Assistant:
+- your phone
+- your partner’s phone
+- a child’s phone
+
+Home Assistant will create notification services for each one, e.g.:
+- `notify.mobile_app_my_phone`
+- `notify.mobile_app_partners_phone`
+- `notify.mobile_app_family_tablet`
+
+You can then choose who gets which alerts.
+
+#### ✅ Even less common: work devices
+If you’ve logged in on a work phone/tablet, it can also appear.
+(Just be mindful of privacy and what notifications you want showing up.)
+
+---
+
+### What else could notifications be (beyond the Companion App)?
+
+The `notify.mobile_app_*` services are specific to the **Mobile App integration**, but Home Assistant supports many other notification destinations too, such as:
+
+- Email notifications
+- Telegram / WhatsApp / Discord
+- Alexa / Google Home announcements
+- Persistent notifications inside Home Assistant
+- Text-to-speech announcements over speakers
+
+So if you’re not using the Companion App, this section still applies — you’d just change the notify service to something else.
+
+---
+
+### How to find your own notify service name
+
+There are a couple of easy ways:
+
+### How to find your own notify service name
+
+There are a couple of easy ways:
+
+#### Option 1 (recommended): Developer Tools → Actions
+1) Go to **Developer Tools → Actions**
+2) Search for: `notify`
+3) You’ll see a list of available notification services
+4) Pick the one that matches your phone/tablet
+
+#### Option 2: Settings → Devices & services
+1) Go to **Settings → Devices & services**
+2) Find **Mobile App**
+3) Click it and look at the devices listed
+4) Each device usually corresponds to a `notify.mobile_app_<device_name>` service
+
+---
+
+### What to change in this guide
+
+Anywhere you see:
+
+```yaml
+service: notify.mobile_app_flip_phone
+```
+Replace it with your notification target, for example:
+```yaml
+service: notify.mobile_app_my_phone
+```
+If you’d like the notification to go to multiple devices, you can:
+
+duplicate the action, or
+
+use a notify group (advanced), or
+
+use another integration like Telegram.
+---
+Why this matters in this project
+
+This alert is designed as “human-in-the-loop” decision support.
+
+Your charging automation can remain fully automatic — but the notification gives you a chance to intervene when the forecast suggests:
+
+“Tonight’s slots aren’t great — a better night is coming soon.”
+
+That’s why notifications are included as an optional step.
 
 ## 9. Making it Generic: Replace-my-entities table
 
