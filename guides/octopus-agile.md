@@ -485,10 +485,6 @@ So if you’re not using the Companion App, this section still applies — you�
 
 There are a couple of easy ways:
 
-### How to find your own notify service name
-
-There are a couple of easy ways:
-
 #### Option 1 (recommended): Developer Tools → Actions
 1) Go to **Developer Tools → Actions**
 2) Search for: `notify`
@@ -523,7 +519,7 @@ If you’d like the notification to go to multiple devices, you can:
 -use another integration like Telegram.
 
 ---
-Why this matters in this project
+## Why this matters in this project
 
 This alert is designed as “human-in-the-loop” decision support.
 
