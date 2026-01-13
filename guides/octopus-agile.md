@@ -37,14 +37,117 @@ This guide includes:
 
 ## 1. Prerequisites
 
-- **Home Assistant** installed and running
-- **Octopus Agile tariff** (import)
-- **BottlecapDave Octopus Energy integration**  
-  GitHub: https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy
+## 1. Prerequisites (and what’s optional)
 
-Optional:
-- **AgilePredict API sensor** (REST sensor pulling predicted future prices)  
-  Website: https://agilepredict.com/
+This project has a clean “core” and a few optional add-ons.  
+The core requirement is simply:
+
+> **A way to control something (charger / appliance) + a way to know Agile prices.**
+
+### 1.1 Core prerequisites (required for the automation to work)
+
+#### ✅ Home Assistant
+Installed and running.
+
+#### ✅ Octopus Agile tariff (import)
+You need to be on Octopus Agile (or another tariff supported by the integration) so Home Assistant can pull half-hour rates.
+
+#### ✅ BottlecapDave Octopus Energy integration
+This guide uses the Octopus Energy integration by BottlecapDave, including **Target Rate / Target Timeframes**.
+
+- Integration: https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy
+
+This integration is what creates the “brain” entity, e.g.:
+
+- `binary_sensor.octopus_energy_target_optimal_car_charging`
+
+…and provides attributes like:
+
+- `target_times`
+- `hours`
+- `overall_average_cost`
+
+---
+
+### 1.2 Hardware control prerequisites (one of these is required)
+
+To automate charging, Home Assistant must be able to **turn charging on/off** somehow.  
+There are several valid approaches — choose the one that matches your hardware.
+
+#### Option A — Smart charger integration (recommended where available)
+If you have a charger like Ohme / Zappi / Wallbox (etc.) and Home Assistant can control it using an integration, use that.
+
+In this case, your automation will turn *that charger entity* on/off rather than a relay.
+
+#### Option B — Shelly / relay switch control (for dumb/legacy chargers) ✅ common DIY route
+If your charger is “dumb” (or an older charger with no integration), you can automate it by switching a relay.
+
+In this guide, I used a **Shelly relay retrofit** inside a legacy charger so Home Assistant can control it like a simple switch.
+
+That creates an entity like:
+
+- `switch.untethered_car_charger`
+
+✅ **Prerequisite if using this method:** Shelly integration in Home Assistant (or MQTT, depending on how you set it up)
+
+- Shelly integration docs: https://www.home-assistant.io/integrations/shelly/
+
+> **Important:** Shelly is not essential to the *concept*.  
+> It’s just one popular way of exposing a charger as an on/off switch in Home Assistant.
+> If you already have a smart charger integration, you don’t need Shelly.
+
+#### Option C — Contactor / circuit switching
+Some people install a heavy duty contactor to cut power to the charger circuit.
+
+Home Assistant still needs a controllable entity (switch/relay) for that contactor.
+
+---
+
+### 1.3 Optional prerequisites (nice-to-have, not essential)
+
+These parts make the setup “smarter” and improve the dashboard/alerts, but the charging automation can work without them.
+
+#### ⭐ Car integration (Tesla / others)
+If your EV has a Home Assistant integration that provides SoC (state of charge), you can fully automate “how much charge is needed”.
+
+Examples:
+- Tesla integration
+- Other manufacturer/community integrations
+
+If you don’t have a car integration, that’s fine — the guide includes manual fallback helpers.
+
+#### ⭐ Companion App (mobile notifications)
+If you want notification alerts, you will need the Home Assistant Companion App installed on your phone/tablet.
+
+This is what creates the notification service such as:
+
+- `notify.mobile_app_my_phone`
+
+Without this, you can still automate charging — you just won’t get push notifications.
+
+#### ⭐ Forecasting layer (AgilePredict)
+This guide optionally uses forecast/prediction data to show a 7-day view and warn when a cheaper day is coming.
+
+This is **not required** for the Target Timeframes charging automation.
+
+You can safely skip it if you only care about “cheapest times overnight from published prices”.
+
+---
+
+### 1.4 Quick checklist: which path are you on?
+
+✅ **If you have a smart charger integration**  
+You can skip Shelly entirely.
+
+✅ **If you have a dumb/legacy charger**  
+You need *some* method to switch it (Shelly relay, contactor, etc.).
+
+✅ **If you don’t have car telemetry**  
+Use manual helpers (`ev_kwh_override` / `ev_hours_override`) — still works.
+
+✅ **If you don’t care about forecasts**  
+Skip AgilePredict — still works.
+
 
 ---
 
