@@ -153,6 +153,7 @@ action:
           - service: switch.turn_off
             target:
               entity_id: switch.untethered_car_charger
+```
 mode: single
 ✅ In my setup `switch.untethered_car_charger` is a Shelly relay I retrofitted into a legacy charger.  
 ➡️ You should replace this with whatever switch/service controls *your* charger.
