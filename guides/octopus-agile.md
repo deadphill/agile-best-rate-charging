@@ -539,3 +539,5 @@ Here are the key entities in my setup and what you should replace them with.
 | `input_number.ev_charger_kw` | charger power in kW | your EVSE power |
 | `sensor.car_soc` | car state-of-charge | your car’s SoC sensor |
 | `sensor.agile_predict` | optional forecast source | your forecast entity |
+::contentReference[oaicite:0]{index=0}
+
