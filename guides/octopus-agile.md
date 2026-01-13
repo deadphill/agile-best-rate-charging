@@ -5,11 +5,12 @@ date: 13/01/2026
 description: "A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile, BottlecapDave Target Rate Timeframes, and optional 7-day forecasting."
 ---
 
-# Mastering Octopus Agile: Cheapest EV Charging with Target Timeframes (and Optional 7-Day Forecasting)
+# Mastering Octopus Agile: Charge my EV to take full advantage of the cheap rates within the Octopus Agile rates (typically overnight) using Target Timeframes (and Optional 7-Day Forecasting)
+
+## The problem I am trying to solve
+Using Octopus Agile is great. By and large this is the cheapest tariff for me to use for my needs. While I could say your mileage may vary, its unlikely you are going to use something like this if you are not taking advantage of a time of use tariff! However at night I would look to charge my car I would turn on the charger and then just leave it. This means while it was cheap, it could be cheaper! Typically in general use the time period for cheapest charging is overnight but it isnt always that. This guide attempts to give the option of seeing the rates and then being able to choose the timeslots with which to automate the activation or turning on and off of your device thats providing the load to whatever you are trying to control. It’s written as a “show what I did, make it generic” walkthrough — i.e. you can follow the same pattern to control **any large electrical load** (immersion heater, storage heaters, etc.) when electricity is cheapest (or even negative).  
 
 This guide shows you how to **automate EV charging at the cheapest possible Octopus Agile times** using Home Assistant and the **Octopus Energy integration by BottlecapDave**.
-
-It’s written as a “show what I did, make it generic” walkthrough — i.e. you can follow the same pattern to control **any large electrical load** (immersion heater, dishwasher, storage heaters, etc.) when electricity is cheapest (or even negative).
 
 > **Core idea:** BottlecapDave’s **Target Rate / Target Timeframes** feature gives you a schedule (`target_times`) of the cheapest half-hours. Once you have that schedule, controlling hardware becomes trivial.
 
@@ -34,8 +35,6 @@ This guide includes:
 9. [Making it Generic: Replace-my-entities table](#9-making-it-generic-replace-my-entities-table)  
 
 ---
-
-## 1. Prerequisites
 
 ## 1. Prerequisites (and what’s optional)
 
@@ -66,7 +65,8 @@ This integration is what creates the “brain” entity, e.g.:
 - `target_times`
 - `hours`
 - `overall_average_cost`
-
+- 
+Ensure this integration is setup and running using your account details. A link to the setup for this brilliant integration is included below.
 ---
 
 ### 1.2 Hardware control prerequisites (one of these is required)
