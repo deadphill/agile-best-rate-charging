@@ -115,7 +115,7 @@ Now we tell Home Assistant to actually move the hardware. This automation watche
 
 You can add this via the Settings > Automations UI or paste this into your automations.yaml:
 
-YAML
+```YAML
 
 alias: "EV Charging: Agile Price Optimizer"
 description: "Automatically toggles the Shelly relay based on the cheapest predicted price of the day."
@@ -136,6 +136,7 @@ action:
     target:
       entity_id: switch.shelly_ev_charger_relay
 mode: restart
+```
 Why this approach works:
 Safety: By using the binary sensor as the "brain," you can easily see on your dashboard if the car should be charging right now.
 
