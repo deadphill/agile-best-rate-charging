@@ -74,7 +74,6 @@ This integration is what creates the “brain” entity, e.g.:
 - `target_times`
 - `hours`
 - `overall_average_cost`
-  
 Ensure this integration is setup and running using your account details. A link to the setup for this brilliant integration is included below.
 ---
 
