@@ -264,6 +264,8 @@ action:
       end_time: "08:00:00"
       persist_changes: true
 mode: single
+```
+
 ## 6. Dashboard: Charging Summary & Slot Table
 
 This Markdown card shows:
@@ -306,6 +308,8 @@ content: >-
   {% else %}
     | No | Slots | Scheduled |
   {% endif %}
+```
+
 ## 7. Optional: 7-Day Forecast Dashboard (AgilePredict)
 
 The Target Rate sensor does not require forecasting — it works purely from published Agile prices.
