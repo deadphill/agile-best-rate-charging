@@ -14,7 +14,7 @@ This guide outlines how to build a 7-day predicted pricing dashboard for Octopus
 
 ## 1. Prerequisites
 * **Home Assistant:** Installed and running.
-* **Octopus Energy Integration:** The [BottlecapDave](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy) integration must be configured.
+* **Octopus Energy Integration:** The [BottlecapDave integration](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy) must be configured.
 * **Agile Predict API Sensor:** A REST sensor pulling data from the [AgilePredict API](https://agilepredict.com/).
 
 ---
