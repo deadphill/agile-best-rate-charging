@@ -192,7 +192,7 @@ If your charger supports it (Ohme, Zappi, Wallbox, etc.), use its integration.
 If you have an older charger (e.g. **Chargemaster**), you can retrofit a **Shelly 1** inside the unit.
 
 - **Method:** interrupt the **Control Pilot (CP)** wire so the car pauses/resumes safely  
-- **Reference guide:** https://github.com/p-shane/chargemaster-shelly-mod  
+- **Reference guide:** [https://github.com/p-shane/chargemaster-shelly-mod  ](https://www.mgevs.com/threads/adding-a-shelly-wifi-controller-to-a-chargemaster-homecharger.4518/)
 - **Video demo:** https://www.youtube.com/watch?v=OSiaMJQIXbE  
 
 3) **Busbar Contactor:**  
