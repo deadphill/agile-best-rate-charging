@@ -1,0 +1,28 @@
+name: Update Daily Savings
+on:
+  repository_dispatch:
+    types: [update_stats]
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Data Folder if missing
+        run: mkdir -p data
+
+      - name: Update savings.json
+        run: |
+          echo '${{ toJson(github.event.client_payload) }}' > data/savings.json
+
+      - name: Commit and Push
+        run: |
+          git config user.name "GitHub Action Robot"
+          git config user.email "actions@github.com"
+          git add data/savings.json
+          git commit -m "Automated Savings Update: ${{ github.event.client_payload.daily }} GBP"
+          git push
