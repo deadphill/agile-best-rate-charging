@@ -6,47 +6,72 @@
     <title>EV Savings Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f4f9; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; }
-        .stat-box { display: flex; justify-content: space-around; margin-bottom: 20px; }
-        .stat { font-size: 1.2rem; font-weight: bold; color: #27ae60; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; background: #f0f2f5; padding: 20px; color: #1c1e21; }
+        .container { max-width: 650px; margin: auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; margin-bottom: 10px; }
+        .last-updated { font-size: 0.9rem; color: #65676b; margin-bottom: 25px; font-style: italic; }
+        .stat-box { display: flex; justify-content: space-around; margin-bottom: 30px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 10px; width: 40%; }
+        .label { display: block; font-size: 0.9rem; color: #5f6368; margin-bottom: 5px; }
+        .stat { font-size: 1.5rem; font-weight: bold; color: #2e7d32; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Agile EV Savings</h1>
+        <h1>EV Energy ROI</h1>
+        <div id="update-time" class="last-updated">Checking for latest data...</div>
+        
         <div class="stat-box">
-            <div>Daily: <span id="daily" class="stat">£--</span></div>
-            <div>Total: <span id="total" class="stat">£--</span></div>
+            <div class="stat-card">
+                <span class="label">Daily Saving</span>
+                <span id="daily" class="stat">£--</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Total Savings</span>
+                <span id="total" class="stat">£--</span>
+            </div>
         </div>
+        
         <canvas id="savingsChart"></canvas>
     </div>
 
     <script>
         async function loadData() {
-            // This fetches the data file Home Assistant just updated!
-            const response = await fetch('./data/savings.json');
-            const data = await response.json();
-            
-            // Update the text numbers
-            document.getElementById('daily').innerText = '£' + data.daily;
-            document.getElementById('total').innerText = '£' + data.total;
+            try {
+                // Fetch the data file with a timestamp to prevent browser caching
+                const response = await fetch('./data/savings.json?t=' + new Date().getTime());
+                const data = await response.json();
+                
+                // Update text
+                document.getElementById('daily').innerText = '£' + parseFloat(data.daily).toFixed(2);
+                document.getElementById('total').innerText = '£' + parseFloat(data.total).toFixed(2);
+                
+                // Show last updated time (Now)
+                const now = new Date();
+                document.getElementById('update-time').innerText = 'Last updated from Home Assistant: ' + now.toLocaleString('en-GB');
 
-            // Create the Chart
-            const ctx = document.getElementById('savingsChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Latest Daily Saving', 'Total Project Savings'],
-                    datasets: [{
-                        label: 'Savings (£)',
-                        data: [data.daily, data.total],
-                        backgroundColor: ['#4caf50', '#2196f3']
-                    }]
-                },
-                options: { responsive: true, scales: { y: { beginAtZero: true } } }
-            });
+                // Update Chart
+                const ctx = document.getElementById('savingsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Daily', 'Cumulative'],
+                        datasets: [{
+                            label: 'Savings in GBP (£)',
+                            data: [data.daily, data.total],
+                            backgroundColor: ['#34a853', '#4285f4'],
+                            borderRadius: 5
+                        }]
+                    },
+                    options: { 
+                        responsive: true,
+                        scales: { y: { beginAtZero: true, ticks: { callback: value => '£' + value } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            } catch (e) {
+                document.getElementById('update-time').innerText = 'Error loading data. Ensure HA has pushed the first update.';
+            }
         }
         loadData();
     </script>
