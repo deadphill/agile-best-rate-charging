@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Savings Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f9; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        .stat-box { display: flex; justify-content: space-around; margin-bottom: 20px; }
+        .stat { font-size: 1.2rem; font-weight: bold; color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agile EV Savings</h1>
+        <div class="stat-box">
+            <div>Daily: <span id="daily" class="stat">£--</span></div>
+            <div>Total: <span id="total" class="stat">£--</span></div>
+        </div>
+        <canvas id="savingsChart"></canvas>
+    </div>
+
+    <script>
+        async function loadData() {
+            // This fetches the data file Home Assistant just updated!
+            const response = await fetch('./data/savings.json');
+            const data = await response.json();
+            
+            // Update the text numbers
+            document.getElementById('daily').innerText = '£' + data.daily;
+            document.getElementById('total').innerText = '£' + data.total;
+
+            // Create the Chart
+            const ctx = document.getElementById('savingsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Latest Daily Saving', 'Total Project Savings'],
+                    datasets: [{
+                        label: 'Savings (£)',
+                        data: [data.daily, data.total],
+                        backgroundColor: ['#4caf50', '#2196f3']
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        }
+        loadData();
+    </script>
+</body>
+</html>
