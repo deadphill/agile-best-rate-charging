@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Mastering Octopus Agile: Cheapest EV Charging with Target Timeframes
+title: "Mastering Octopus Agile: Cheapest EV Charging with Target Timeframes"
 date: 23/02/2026
-description: A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile, Target Timeframes, and optional 7-day forecasting.
+description: "A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile, Target Timeframes, and optional 7-day forecasting."
 ---
 
 # Mastering Octopus Agile: Charge my EV to take full advantage of the cheap rates within the Octopus Agile rates (typically overnight) using Target Timeframes (and Optional 7-Day Forecasting)
