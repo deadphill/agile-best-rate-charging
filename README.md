@@ -2,8 +2,9 @@
 layout: post
 title: "Mastering Octopus Agile: Cheapest EV Charging with Target Timeframes"
 date: 13/01/2026
-last_updated: 23/02/2026
-description: "A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile, BottlecapDave Octopus Energy integration (v17+), and the Target Timeframes integration. Includes dynamic charging hours, dashboard widgets, and optional 7-day forecasting. Updated February 2026 to reflect migration from old Octopus Energy target rates to the new Target Timeframes integration."
+description: "A beginner-friendly technical walkthrough of UK energy optimisation using Octopus Agile, BottlecapDave Target Rate Timeframes, and optional 7-day forecasting."
+updated: 23/02/2026
+update_description: "Updated to reflect BottlecapDave Octopus Energy integration v17+ changes. Target rates migrated to the separate Target Timeframes integration. Service calls, attribute names, and dashboard code updated accordingly."
 ---
 
 # Mastering Octopus Agile: Charge my EV to take full advantage of the cheap rates within the Octopus Agile rates (typically overnight) using Target Timeframes (and Optional 7-Day Forecasting)
